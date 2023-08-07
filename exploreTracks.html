@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HOMEPAGE</title>
+    <link href="indexStyle.css" rel="stylesheet" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    
+<style>
+    
+#content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#boxInput{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#boxInput h1{
+  margin-top: 10px;
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+#boxInput h1 span{
+  color: #3fff19b7;
+}
+#adFilter label{
+  color: white;
+  font-weight: bold;
+}
+
+#content input{
+  border-radius: 10px;
+  border: none;
+  background-color: rgba(189, 186, 186, 0.39);
+  height: 40px;
+  color: white;
+  font-size: 18px;
+  line-height: 40px;
+  padding: 10px;
+}
+#content input:focus{
+  outline: 1px solid #3fff19b7 ;
+}
+#content input::placeholder{
+  color:rgba(238, 238, 238, 0.678);
+}
+#searchInput {
+  margin-top: 10px;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+#adFilter{
+  display: flex;
+}
+#adFilter input{
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+#btnAdFltr{
+  background: none;
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+#btnAdFltr i{
+  padding-left: 5px;
+}
+.boxFltr{
+  width: 50%;
+}
+
+#container-tracks {
+    /* Imposta l'altezza massima a cui il div può espandersi prima di iniziare a scorrere */
+    max-height: calc(100vh - 300px);
+    /* Imposta l'overflow a "auto" per abilitare la barra di scorrimento solo quando necessario */
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* Alcuni stili opzionali per la formattazione del contenuto all'interno del div */
+    
+    
+  }
+
+  /* Stili delle card all'interno del div scrollabile (opzionale) */
+  .custom-card-track {
+    padding: 10px ;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .custom-card-track:hover {
+    border-radius: 10px;
+    background-color: rgba(134, 132, 132, 0.39);
+  }
+
+   /* Personalizza la barra di scorrimento */
+   #container-tracks::-webkit-scrollbar {
+    width: 0px; /* Larghezza della barra di scorrimento */
+  }
+  .card-img-container {
+    width: 90px;
+  }
+  .card-img{
+    width: 100%; /* Imposta l'immagine al 100% della larghezza del div */
+    height: auto; /* L'altezza dell'immagine si adatterà automaticamente alla larghezza specificata */
+    display: block;
+  }
+
+  #container-tracks a{
+    text-decoration: none;
+    color: white;
+
+  }
+  .card-track-artist{
+    font-size: 12px;
+    
+  }
+  .card-body{
+    padding-left: 20px;
+    
+  }
+  .card-track-artist{
+    margin-bottom: 0px !important;
+  }
+  .card-track-time{
+    margin-bottom: 0px !important;
+    padding-left: 10px;
+  }
+  .boxOverflow{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+</style>   
+</head>
+<body>
+  
+<div class="container-fluid">
+  <div class="row " id="mainNavigation" >
+    <div class="col-md-3 col-2" id="barsMenu" >
+      <button id="btnMenu" class="btnMnMax" onclick="toggleMenu()"><i class="fas fa-bars me-2"></i></button>
+    </div>
+    <div class="col-md-6 col-6" id="imgBrand">
+      <img src="https://i.imgur.com/7VaedsS.png"  id="img">
+    </div>  
+    <div class="col-md-3 col-4 text-end d-block" id="logSection">
+      <a href="login.html"><button id="btnLogin" class="btnLogMax"><i class="fas fa-user me-2 white-icon"></i>Login</button></a>
+    </div>
+  </div>
+    
+  <div class="row" id="bodyPage">
+    <div id="menu" class="d-none d-md-block col-md-4 col-xl-3 " >
+        <div id="menuDrawer">
+          <a href="home.html" class="menu-item"><i class="fas fa-home me-3"></i>Home</a>
+          <a href="exploreTracks.html" class="menu-item"><i class="fab fa-product-hunt me-3"></i>Explore Tracks</a>
+          <a href="myPlaylists.html" class="menu-item"><i class="fas fa-search me-3"></i>My Playlists</a>
+          <a href="publicPlaylists.html" class="menu-item"><i class="fas fa-wrench me-3"></i>Public Playlists</a> 
+        </div>   
+        <div id="separator"></div>
+        <div id="newPlaylist">
+          <a href="myPlaylists.html"><button id="btnPlyLst" onclick="createPlaylist()"><i class="fas fa-plus me-2 white-icon"></i>New Playlist</button></a>
+        </div>
+    </div>
+    <div id="mainPage" class="col-12 col-md-8 col-xl-9 " >
+      <div id="content">
+        <div id="boxInput" class="col-10  col-xl-9 ">
+          <h1>Search your favorite <span> tracks</span> !!</h1>
+          <input type="text" id="searchInput" placeholder="Cerca..."onkeyup="exploreTracks()">
+          <button id="btnAdFltr" onclick="showAdFilter()">Advanced Filter<i class="fa fa-caret-down" aria-hidden="true"></i></button>
+        </div>
+        <div id="adFilter" class="col-8   col-lg-6 d-none">
+          <div class="d-flex flex-column align-items-center boxFltr" style="margin-right: 10px;">
+            <label for="artistInput">Autore:</label>
+            <input type="text" id="artistInput" placeholder="Autore" onkeyup="exploreTracks()">
+          </div>
+          <div class="d-flex flex-column align-items-center boxFltr" >
+            <label for="genreInput">Genere:</label>
+            <input type="text" id="genreInput" placeholder="Genere" onkeyup="exploreTracks()">
+          </div>
+        </div> 
+        
+          <div id="container-tracks" class="col-11 ">
+            <a href="#" id="card-track" class="d-none ">
+              <div class="d-flex  custom-card-track">
+                  <div class="card-img-container">
+                    <img class="card-img" alt="...">
+                  </div>
+                  <div class="card-body ">                  
+                      <h6 class="card-track-title boxOverflow" style="width: 190px;"></h6>
+                      <p class="card-track-artist boxOverflow" style="width: 100px;"></p>                
+                  </div>
+                  <div class="card-tail ">
+                    <p class="card-track-time text-center"></p>
+                  </div>
+                </div>
+              </a>
+          </div>
+           
+      </div>
+    </div>
+
+
+  </div> 
+</div>   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+  <script src="home.js"></script>
+  <script src="token.js"></script>
+  <script src="myPlaylists.js"></script> 
+  
+  <script src="exploreTracks.js"></script>  
+  
+ 
+    
+</body>
+
+</html>

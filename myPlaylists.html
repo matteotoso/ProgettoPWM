@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HOMEPAGE</title>
+    <link href="indexStyle.css" rel="stylesheet" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    
+<style>
+  
+  #boxCrtPlylst{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(8, 8, 8, 0.719);
+    
+    border: 1px solid rgba(255, 255, 255, 0.658);
+
+  }
+  
+  #boxCrtPlylst a{
+    padding-top: 15px;
+    padding-left: 30px;
+    font-size: 50px;
+    color:white;
+  }
+  
+
+</style>   
+</head>
+<body>
+  
+<div class="container-fluid">
+  <div class="row " id="mainNavigation" >
+    <div class="col-md-3 col-2" id="barsMenu" >
+      <button id="btnMenu" class="btnMnMax" onclick="toggleMenu()"><i class="fas fa-bars me-2"></i></button>
+    </div>
+    <div class="col-md-6 col-6" id="imgBrand">
+      <img src="https://i.imgur.com/7VaedsS.png"  id="img">
+    </div>  
+    <div class="col-md-3 col-4 text-end d-block" id="logSection">
+      <a href="login.html"><button id="btnLogin" class="btnLogMax"><i class="fas fa-user me-2 white-icon"></i>Login</button></a>
+    </div>
+  </div>
+    
+  <div class="row" id="bodyPage">
+    <div id="menu" class="d-none d-md-block col-md-4 col-xl-3 " >
+        <div id="menuDrawer">
+          <a href="home.html" class="menu-item"><i class="fas fa-home me-3"></i>Home</a>
+          <a href="exploreTracks.html" class="menu-item"><i class="fab fa-product-hunt me-3"></i>Explore Tracks</a>
+          <a href="myPlaylists.html" class="menu-item"><i class="fas fa-search me-3"></i>My Playlists</a>
+          <a href="publicPlaylists.html" class="menu-item"><i class="fas fa-wrench me-3"></i>Public Playlists</a> 
+        </div>   
+        <div id="separator"></div>
+        
+    </div>
+    <div id="mainPage" class="col-12 col-md-8 col-xl-9 " >
+      <div id="content">
+        <div id="boxCrtPlylst" class="d-none">
+          
+            <a href="myPlaylists.html"><i class="fas fa-times "></i></a>
+          
+        </div>
+      </div>
+    </div>
+  </div> 
+</div>   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+  <script src="home.js"></script>
+  <script src="token.js"></script>
+  <script src="myPlaylists.js"></script>   
+  
+ 
+    
+</body>
+</html>
