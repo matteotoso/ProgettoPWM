@@ -98,43 +98,65 @@
   .custom-card-track {
     padding: 10px ;
     width: 100%;
-    display: flex;
     align-items: center;
   }
-  .custom-card-track:hover {
+  #container-tracks button:hover {
     border-radius: 10px;
     background-color: rgba(134, 132, 132, 0.39);
   }
+  #container-tracks button:focus {
+    border-radius: 10px;
+    background-color: rgba(60, 255, 0, 0.459);
+  }
+  #container-tracks .card2 .card-tail button:focus, #container-tracks .card2 .card-tail button:hover {
+    border: none;
+    background: none;
+  }
+
+  #container-tracks .card2 .card-tail button:hover {
+    font-size: 20px;
+  }
+  
 
    /* Personalizza la barra di scorrimento */
    #container-tracks::-webkit-scrollbar {
     width: 0px; /* Larghezza della barra di scorrimento */
   }
   .card-img-container {
-    width: 90px;
+    width: 60px;
   }
   .card-img{
     width: 100%; /* Imposta l'immagine al 100% della larghezza del div */
     height: auto; /* L'altezza dell'immagine si adatterà automaticamente alla larghezza specificata */
     display: block;
   }
-
+  .card2 .card-img-container {
+    width: 50px;
+  }
+  .card2 .card-img{
+    width: 100%; /* Imposta l'immagine al 100% della larghezza del div */
+    height: auto; /* L'altezza dell'immagine si adatterà automaticamente alla larghezza specificata */
+    display: block;
+  }
   #container-tracks a{
     text-decoration: none;
-    color: white;
+    
 
   }
   .card-track-artist{
+    margin-bottom: 0px !important;
     font-size: 12px;
+    text-align: left;
     
+  }
+  .card-track-title{
+    text-align: left;
   }
   .card-body{
     padding-left: 20px;
     
   }
-  .card-track-artist{
-    margin-bottom: 0px !important;
-  }
+  
   .card-track-time{
     margin-bottom: 0px !important;
     padding-left: 10px;
@@ -144,7 +166,18 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-
+  #container-tracks button{
+    width: 100%;
+    background: none;
+    border: none;
+    color: white;
+    margin-bottom: 3px;
+  }
+  
+  #container-tracks .card2 button{
+    width: 90%;
+  }
+  
 </style>   
 </head>
 <body>
@@ -194,7 +227,7 @@
         </div> 
         
           <div id="container-tracks" class="col-11 ">
-            <a href="#" id="card-track" class="d-none ">
+              <button onclick="addClickedTrack(this)" id="card-track" class="d-none ">
               <div class="d-flex  custom-card-track">
                   <div class="card-img-container">
                     <img class="card-img" alt="...">
@@ -207,7 +240,23 @@
                     <p class="card-track-time text-center"></p>
                   </div>
                 </div>
-              </a>
+              </button>
+              <div  id="card2-track" class="d-flex d-none align-items-center card2" >
+              <button onclick="showClickedTrack(this.parentNode.id.split('-').pop())" class=" d-flex custom-card-track">
+                
+                    <div class="card-img-container">
+                      <img class="card-img" alt="...">
+                    </div>
+                    <div class="card-body ">                  
+                        <h6 class="card-track-title boxOverflow" style="width: 190px;"></h6>
+                        <p class="card-track-artist boxOverflow" style="width: 100px;"></p>                
+                    </div>
+                    
+                </button>
+                <div class="card-tail ">
+                  <button onclick="removeTrackArray(this.parentNode.parentNode)"><i class="fa fa-times" aria-hidden="true"></i></button>
+                </div>
+              </div>
           </div>
            
       </div>
@@ -225,7 +274,8 @@
   
   <script src="exploreTracks.js"></script>  
   
- 
+ <script>
+ </script>
     
 </body>
 

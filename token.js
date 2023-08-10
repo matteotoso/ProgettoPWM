@@ -48,8 +48,8 @@ function fetchAndSaveNewToken() {
     });
 }
 
-// Avvia il processo di ottenimento del token all'avvio dell'applicazione
-fetchAndSaveNewToken();
+
+
 
 
 
