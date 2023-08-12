@@ -4,26 +4,22 @@ const arraySize = 10;
 var exploreSuc= false;
 
 
+
 if (!localStorage.getItem("clkTracksArray")) {
   console.log("ciao");
   var tArray = new Array(arraySize).fill(null); // Inizializza l'array con elementi null
   localStorage.setItem("clkTracksArray", JSON.stringify(tArray)); // Converte in JSON e memorizza
 }
   
+/*----------------------------------------------------------------------------------------------------------------------------------------------------- */
 
-
-
+// funzione ricerca tracce
 
 function exploreTracks(){
-    fetchAndSaveNewToken();
     var accessToken = localStorage.getItem("access_token");      
-    
-    var container= document.getElementById("container-tracks");
-    var searchTerm = document.getElementById("searchInput").value.toLowerCase();
-    
-    var artistTerm = document.getElementById("artistInput").value.toLowerCase();
-    var genreTerm = document.getElementById("genreInput").value.toLowerCase();
-
+    var searchTerm = document.getElementById("searchInput").value
+    var artistTerm = document.getElementById("artistInput").value
+    var genreTerm = document.getElementById("genreInput").value
     var searchParams = new URLSearchParams();
     var queryString = '';
 
@@ -35,17 +31,12 @@ function exploreTracks(){
     if (artistTerm.length > 1) {
         queryString += ` artist:${artistTerm}`;
     }
-
     // Aggiungi il filtro per il genere solo se è stato inserito
     if (genreTerm.length > 1) {
         
         queryString += ` genre:${genreTerm}`;
     }
-
-    // Aggiungi il termine di ricerca "q" con tutti i filtri
-    
-      
-  
+    // Aggiungi il termine di ricerca "q" con tutti i filtri     
     if (queryString == '') {
       if (exploreSuc) {
           deleteShowedTracks();
@@ -58,13 +49,10 @@ function exploreTracks(){
       deleteShowedTracks();
   }
     
-    
     searchParams.append('q', queryString);
     searchParams.append('type', 'track');
     searchParams.append('limit', 15);
     console.log(searchParams.toString())
-    
- 
 
   fetch(`${baseURL}search?${searchParams.toString()}`,{
         headers: {
@@ -155,16 +143,17 @@ function deleteShowedTracks() {
     }
 }
 
-function showInfoTrack(){
-  alert("Hai cliccato il bottone!");
-
-}
 
 function msToMinutes(duration_ms) {
   const minutes = Math.floor(duration_ms / 60000);
   const seconds = ((duration_ms % 60000) / 1000).toFixed(0); //Calcola il numero di secondi rimanenti, arrotonda il valore a un numero intero.
   return minutes + ":" + (seconds < 10 ? '0' : '') + seconds; //Costruisci la stringa risultante nel formato "minuti:secondi"
 }
+
+
+/*--------------------------------------------------------------------------------------------------------------------------------------------*/
+
+
 function showAdFilter(){
   var adFilter = document.getElementById("adFilter")
   var container= document.getElementById("container-tracks");
@@ -202,7 +191,7 @@ function addClickedTrack(card){
   if (myArray[0] === null) {
     myArray = []; // Inizializza l'array vuoto se non ci sono dati nel localStorage
   }
-
+  showClickedTrack(tId);
   var existingIndex = myArray.findIndex(item => item.id === tId);
 
     if (shiftElementsIfNeeded(myArray, existingIndex)) {
@@ -230,15 +219,16 @@ myArray[0] = trackInfo;
 console.log(myArray);
  // Stampa l'array per verificarne il contenuto
 localStorage.setItem("clkTracksArray",JSON.stringify(myArray)); 
-showClickedTrack(tId);
+
 }
 
 
 
 
 function showClickedTrack(id){
-  var newURL = window.location.origin + window.location.pathname + "?" + id;
-    history.replaceState(null, null, newURL);
+  var newURL = window.location.origin + window.location.pathname + "?id_track=" + id;
+    history.pushState(null, null, newURL);
+    getTrack(id)
 }
 
 function showHistoryClickedTrack(){
@@ -288,9 +278,7 @@ function removeTrackArray(card){
   localStorage.setItem("clkTracksArray",JSON.stringify(myArray))
 
 }
-document.addEventListener("DOMContentLoaded", showHistoryClickedTrack);
-window.addEventListener("resize", setBodyPage);
-setBodyPage();
+
 
 
 
@@ -309,3 +297,124 @@ function shiftElementsIfNeeded(myArray, existingIndex) {
   return false;
 }
 
+
+
+/*---------------------------------------------------------------------------------------------------------------------*/
+
+function showTrackInfo() {
+  // Controlla se è stato aggiunto un parametro "id" all'URL
+  var id = new URLSearchParams(window.location.search).get('id_track')
+  var boxTrackInfo = document.getElementById("boxTrackInfo")
+  console.log("event popstate va, id trovato url: "+ id)
+  if (id !== null) {
+    getTrack(id);
+  }else{
+    if(boxTrackInfo.classList.contains("show-boxTrackInfo"))
+      boxTrackInfo.classList.remove("show-boxTrackInfo");
+  }
+}
+
+
+function getTrack(id){
+  var accessToken = localStorage.getItem("access_token"); 
+  fetch(`${baseURL}tracks/${id}`,{
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + accessToken,
+    }
+      
+  })
+  .then((response)=>{
+    if(!response.ok){
+      response.json().then((data)=>alert("error "+data.error.status + ": "+data.error.message));
+      return;
+    }
+    console.log("fetch riuscita")
+    response.json().then((track)=>showTrack(track))
+  })
+  .catch(error => alert("error "+error));
+}
+
+function showTrack(result){
+  boxTrackInfo.classList.add("show-boxTrackInfo")
+
+
+    document.getElementById("track-info-title").innerHTML = result.name 
+    document.getElementById("track-info-artist").innerHTML = result.artists.map((artist) => artist.name);
+    document.getElementById("track-info-title").href = result.external_urls.spotify
+    setAudioPreview(result.preview_url)
+    document.getElementById("track-info-album").innerHTML = result.album.name + " • " + result.album.release_date.split("-")[0];
+    
+    document.getElementById("track-info-img").src = result.album.images[0].url;
+}
+
+function setAudioPreview(preview){
+  var textPrevNotA = document.getElementById("prevNotAvaible")
+  var audioButton = document.getElementById("playButton")
+
+  if(preview !== null){
+    document.getElementById("track-info-audio").src = preview
+    audioButton.classList.remove("d-none")
+    textPrevNotA.classList.add("d-none");
+
+  }else{
+    document.getElementById("track-info-audio").src = "";
+    audioButton.classList.add("d-none")
+    textPrevNotA.classList.remove("d-none");
+  }
+    
+}
+
+function removeTrackInfo(){
+  var boxTrackInfo = document.getElementById("boxTrackInfo")
+  const audioPlayer = document.getElementById("track-info-audio");
+  var audioButton = document.getElementById("playButton");
+  var playIcon = audioButton.querySelector("i");
+
+  if (audioPlayer.played) {
+    audioPlayer.pause();
+    playIcon.classList.remove("fa-pause");
+    playIcon.classList.add("fa-play");
+  }
+  boxTrackInfo.classList.remove("show-boxTrackInfo")
+  var newURL = window.location.origin + window.location.pathname ;
+  history.pushState(null, null, newURL);
+
+}
+
+
+
+function playPreview(){
+  const audioPlayer = document.getElementById("track-info-audio");
+  var audioButton = document.getElementById("playButton");
+  var playIcon = audioButton.querySelector("i"); // Trova l'icona all'interno del bottone
+  
+  if (audioPlayer.paused) {
+    playIcon.classList.remove("fa-play");
+    playIcon.classList.add("fa-pause");
+    audioPlayer.play();
+    
+    
+  } else {
+    audioPlayer.pause();
+    playIcon.classList.remove("fa-pause");
+    playIcon.classList.add("fa-play");
+  }
+}
+
+
+
+
+
+
+ 
+
+
+/*-------------------------------------------------------------------------------------------------- */
+window.addEventListener('popstate',showTrackInfo);
+window.addEventListener("resize", setBodyPage);
+document.addEventListener("DOMContentLoaded", function() {
+  showHistoryClickedTrack();
+  showTrackInfo();
+});
+setBodyPage();

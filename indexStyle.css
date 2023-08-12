@@ -75,6 +75,7 @@ img{
 #menu{
     border-right: 6px solid #40d124;
     background-color: #080808;
+    z-index: 999;
     
 }
 #menuDrawer{
