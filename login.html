@@ -4,83 +4,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LOGIN</title>
-    
+    <link href="LogRegStyle.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     
-<style>
-body{
-    background-color: #080808 !important;
-}
-  
-#btnBack{
-    color: white;
-    margin-top: 30px;
-    margin-left: 10px;
-    cursor: pointer;
-}
-#boxLogin{ 
-    margin-top: 20vh;
-}
-#boxLogin input{
-    width: 100%;
-    height: 40px;
-    border-radius: 5px;
-    border: none;
-
-}
-#boxLogin h1{
-    text-align: center;
-    color: #3fff19b7 ;
-}
-#boxLogin p{
-    margin-bottom: 5px;
-    margin-top: 10px;
-    color: white;
-}
-#boxLogin p span{
-    color: #3fff19b7 ;
-}
-#boxLogin p a {
-    text-decoration: none;
-    color: #3fff19b7;
-}
-#bdPage{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-#boxLogin button {
-    margin-top: 15px;
-    height: 40px;
-    background: #3fff19b7 ;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    width: 100%;
-    
-}
-#boxLogin input:focus{
-    outline: 2px solid #3fff19b7 ;
-}
-
-
-</style>   
+ 
 </head>
 <body>
     <div class="container-fluid">
-        <div class="row " id="bdPage" >
-            <a href="home.html"><i id="btnBack"class="fa fa-chevron-left " aria-hidden="true"> H O M E</i></a>
+        <div class="row bdPage">
+            <a href="home.html"><i class="fa fa-chevron-left btnBack" aria-hidden="true"> H O M E</i></a>
             
-            <div id="boxLogin" class="col-10 col-sm-8 col-md-6 col-xl-4 ">
+            <div class="boxLogReg col-10 col-sm-8 col-md-6 col-xl-4 " style="margin-top: 15vh;">
                 <h1>Login</h1>
                 <p style="font-size: 20px; text-align: center;" class="d-none d-md-block"><span>Accedi</span> ora per <span>sbloccare</span> tutte le <span>features</span> !!</p>
                 <p><i class="fa fa-user" aria-hidden="true"></i> Username:</p>
-                  <input type="text" id="userInput" placeholder=" MarioRossi" >
+                  <input type="text" id="userInput" placeholder="MarioRossi" >
                 <p><i class="fa fa-lock" aria-hidden="true"></i> Password:</p>
-                  <input type="text" id="passInput" placeholder=" P4s$w0rd" >
-                  <button >LOGIN</button>
+                  <input type="password" id="passInput" placeholder="P4s$w0rd" >
+                  <button class="submitBtn">LOGIN</button>
                 <p style="text-align: center;">Non hai ancora un account?<a href="register.html"> Registrati</a></p>
               </div> 
         </div>
