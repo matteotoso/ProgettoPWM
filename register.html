@@ -62,21 +62,21 @@ input:focus + .infoInput {
                   <input type="email" id="emailInput" name="email" placeholder="Mario.rossi@gmail.com" >
                 <p class="infoInput">Formato e-mail valido 'nome@dominio'.</p>
                 <p><i class="fa fa-lock" aria-hidden="true"></i> Password:</p>
-                <div class="password-input">
-                  <input type="password" id="passRegInput" placeholder="P4s$w0rd">
+                <div class="password-input" style="position: relative;">
+                  <input type="password" id="pass1Input" placeholder="P4s$w0rd" >
                   <p class="infoInput">Deve contenere almeno 8 caratteri, utilizza una combinazione di lettere maiuscole e minuscole, numeri e caratteri speciali (!@#$%)</p>
                   <button onclick="showPass(this.previousElementSibling.previousElementSibling, this.querySelector('i'))"><i class="fa fa-eye togglePassword"  aria-hidden="true"></i></button>
-                </div>
-               
+                    
+                </div>               
                   <p><i class="fa fa-lock" aria-hidden="true"></i> Confirm Password:</p>
                   <div class="password-input">
-                    <input type="password" id="confPassInput" placeholder="P4s$w0rd" >
+                    <input type="password" id="pass2Input" placeholder="P4s$w0rd" >
                     <p class="infoInput">Ripeti la password inserita precedentemente</p>
                     <button onclick="showPass(this.previousElementSibling.previousElementSibling, this.querySelector('i'))"><i class="fa fa-eye togglePassword"  aria-hidden="true"></i></button>
                   </div>
                   
 
-                <button class="submitBtn">REGISTER</button>
+                <button class="submitBtn" onclick="register()">REGISTER</button>
                 <p style="text-align: center;">Hai già un account?<a href="login.html"> Login</a></p>
               </div> 
         </div>
@@ -89,9 +89,7 @@ input:focus + .infoInput {
   <script src="token.js"></script>
   <script>
     function showPass(passwordInput, icon) {
-      if(passwordInput.value === ""){
-        return;
-      }
+      
       if (passwordInput.type === "password") {
             icon.classList.remove("fa-eye");
             icon.classList.add("fa-eye-slash");
@@ -102,6 +100,65 @@ input:focus + .infoInput {
             icon.classList.add("fa-eye");
         }
 }
+
+function register(){
+  var username = document.getElementById("userInput")
+  var email = document.getElementById("emailInput")
+  var pass1 = document.getElementById("pass1Input")
+  var pass2 = document.getElementById("pass2Input")
+
+  checkInfo(username, email, pass1, pass2);
+
+
+}
+
+function checkInfo(username, email, pass1, pass2){
+  var usernameV = username.value;
+  var emailV = email.value;
+  var pass1V = pass1.value;
+  var pass2V = pass2.value;
+  var errorMessage = "";
+
+if (pass1V.length < 8) {
+    errorMessage = "La password deve contenere almeno 8 caratteri.";
+} else if (!/[a-z]/.test(pass1V)) {
+    errorMessage = "La password deve contenere almeno una lettera minuscola.";
+} else if (!/[A-Z]/.test(pass1V)) {
+    errorMessage = "La password deve contenere almeno una lettera maiuscola.";
+} else if (!/\d/.test(pass1V)) {
+    errorMessage = "La password deve contenere almeno un numero.";
+} else if (!/[!@#\$%]/.test(pass1V)) {
+    errorMessage = "La password deve contenere almeno un carattere speciale (!@#$%).";
+}
+
+if (errorMessage) {
+    // Mostra il messaggio di errore
+    showErrMess(errorMessage, pass1);
+    
+}
+
+if(pass1V != pass2V){
+  showErrMess("Le password non coincidono",pass2);
+}
+}
+
+function showErrMess(errorMessage, element){
+  var prevContent = element.nextElementSibling.innerHTML
+  var textInfo = element.nextElementSibling;
+  textInfo.innerHTML = errorMessage;
+  textInfo.style.maxHeight = "150px";
+
+  element.style.outline = "2px solid #ff1919b7";
+
+    element.addEventListener("focus", function() {
+
+      textInfo.innerHTML = prevContent;
+      textInfo.style.maxHeight = "";
+        element.style.outline = "";
+    });
+}
+        
+ 
   </script>
  
     
