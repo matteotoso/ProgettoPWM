@@ -126,7 +126,7 @@ function checkInfo(username, email, pass1, pass2){
 //Test validità username
 if (usernameV.length < 4 || usernameV.length > 16){
   errorMessage = "Lo username deve avere 4-16 caratteri"
-}else if (!/[a-zA-Z0-9_.]/.test(usernameV)) {
+}else if (/[^a-zA-Z0-9_.]/.test(usernameV)) {
     errorMessage = "Lo username contiene caratteri non consentiti";
 }
 
