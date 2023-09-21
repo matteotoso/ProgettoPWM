@@ -20,10 +20,15 @@
                 <h1>Login</h1>
                 <p style="font-size: 20px; text-align: center;" class="d-none d-md-block"><span>Accedi</span> ora per <span>sbloccare</span> tutte le <span>features</span> !!</p>
                 <p><i class="fa fa-user" aria-hidden="true"></i> Username:</p>
-                  <input type="text" id="userInput" placeholder="MarioRossi" >
-                <p><i class="fa fa-lock" aria-hidden="true"></i> Password:</p>
-                  <input type="password" id="passInput" placeholder="P4s$w0rd" >
-                  <button class="submitBtn">LOGIN</button>
+                  <input type="text" id="usernameInput" placeholder="MarioRossi" >
+                <p class="infoInput"></p>
+                  <p><i class="fa fa-lock" aria-hidden="true"></i> Password:</p>
+                  <div class="password-input" style="position: relative;">
+                    <input type="password" id="passInput" placeholder="P4s$w0rd" >
+                    <p class="infoInput"></p>
+                    <button onclick="showPass(this.previousElementSibling.previousElementSibling, this.querySelector('i'))"><i class="fa fa-eye togglePassword"  aria-hidden="true"></i></button>
+                    </div> 
+                  <button class="submitBtn" onclick="login()">LOGIN</button>
                 <p style="text-align: center;">Non hai ancora un account?<a href="register.html"> Registrati</a></p>
               </div> 
         </div>
@@ -34,7 +39,14 @@
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
   <script src="token.js"></script>
-  
+  <script src="LogReg.js"></script>
+  <script>
+    function login(){
+  var username = document.getElementById("usernameInput")
+  var pass = document.getElementById("passInput")
+  }
+
+  </script>
  
     
 </body>
